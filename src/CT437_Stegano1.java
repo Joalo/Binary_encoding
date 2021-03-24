@@ -11,13 +11,15 @@ public class CT437_Stegano1
      */
     public CT437_Stegano1()
     {
+
     }
 
     public static void main(String[] args) {
         String arg1, arg2, arg3, arg4;
         Boolean err = false;
 
-        if (args != null && args.length > 1) { // Check for minimum number of arguments
+        if (args != null && args.length > 1)
+        { // Check for minimum number of arguments
             arg1 = args[0];
             arg2 = args[1];
 
@@ -66,11 +68,15 @@ public class CT437_Stegano1
             reader = new BufferedReader(new FileReader(inpFile));
             writer = new BufferedWriter(new FileWriter(outFile));
             String line = reader.readLine();
-            int currentLine = 0;
+
+            int curr = 0;
             int bincode = 0;
-            while (line != null) {
+
+            while (line != null)
+            {
                 //If there are no more bits to encode skip to end
-                if (currentLine >= binString.length() ){
+                if (curr >= binString.length() )
+                {
                     writer.write(line);
                     writer.newLine();
                     // read next line
@@ -79,20 +85,24 @@ public class CT437_Stegano1
                 }
                 else
 
-                    //get bit value from bit string
-                    bincode = Character.getNumericValue(binString.charAt(currentLine));
+                    //get value from bit string
+                    bincode = Character.getNumericValue(binString.charAt(curr));
 
-                if(bincode == 0){
+                if(bincode == 0)
+                {
                     line = line + " ";
 
                 }
-                else if(bincode == 1){
+                else if(bincode == 1)
+                {
                     line = line + "  ";
                 }
-                else{
+                else
+                    {
                     throw new IOException();
-                }
-                currentLine++;
+                    }
+
+                curr++;
 
                 // Store amended line in output file
                 writer.write(line);
@@ -103,13 +113,15 @@ public class CT437_Stegano1
             reader.close();
             writer.close();
             System.out.println("code has been hidden");
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    static void retrieve(String inpFile) {
+    static void retrieve(String inpFile)
+    {
         BufferedReader reader;
         String answer = "";
 
@@ -119,36 +131,44 @@ public class CT437_Stegano1
             String line = reader.readLine();
             while (line != null) {
                 // Your code starts here
-                if(line.equals("")) {
+                if(line.equals(""))
+                {
                     line = reader.readLine();
                 }
-                else{
+                else
+                    {
 
                     String lastChar = line.substring(line.length()-1);
                     //take into account empty line that may have hidden space
-                    if(lastChar.equals(" ")){
-                        if(line.length()==1){
+                    if(lastChar.equals(" "))
+                    {
+                        if(line.length()==1)
+                        {
                             answer = answer+"1";
                             line = reader.readLine();
                             continue;
                         }
                         // check if 0 or 1
                         String secondLastChar = line.substring(line.length()-2);
-                        if(secondLastChar.equals("  ")){
+                        if(secondLastChar.equals("  "))
+                        {
 
                             answer = answer + "1";
                         }
-                        else{
+                        else
+                            {
                             answer = answer + "0";
-                        }
-                    }
+                            }
+                     }
                 // read next line
                 line = reader.readLine();
-            }}
+                    }
+            }
             System.out.println(answer);
             System.out.println("retrieved hidden code");
             reader.close();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
